@@ -14,6 +14,151 @@ export type Database = {
   }
   public: {
     Tables: {
+      alerts: {
+        Row: {
+          created_at: string
+          description: string | null
+          entity_id: string | null
+          entity_name: string | null
+          entity_type: string | null
+          id: string
+          location: string | null
+          risk_score: number | null
+          severity: Database["public"]["Enums"]["alert_severity"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          entity_id?: string | null
+          entity_name?: string | null
+          entity_type?: string | null
+          id?: string
+          location?: string | null
+          risk_score?: number | null
+          severity?: Database["public"]["Enums"]["alert_severity"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          entity_id?: string | null
+          entity_name?: string | null
+          entity_type?: string | null
+          id?: string
+          location?: string | null
+          risk_score?: number | null
+          severity?: Database["public"]["Enums"]["alert_severity"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      case_notes: {
+        Row: {
+          author_id: string
+          case_id: string
+          content: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          author_id: string
+          case_id: string
+          content: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          author_id?: string
+          case_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_notes_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_notes_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          alert_id: string | null
+          assigned_to: string | null
+          case_number: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          priority: Database["public"]["Enums"]["alert_severity"]
+          status: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          alert_id?: string | null
+          assigned_to?: string | null
+          case_number: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["alert_severity"]
+          status?: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          alert_id?: string | null
+          assigned_to?: string | null
+          case_number?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["alert_severity"]
+          status?: Database["public"]["Enums"]["case_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_alert_id_fkey"
+            columns: ["alert_id"]
+            isOneToOne: false
+            referencedRelation: "alerts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cases_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cases_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -53,6 +198,42 @@ export type Database = {
         }
         Relationships: []
       }
+      transactions: {
+        Row: {
+          amount: number
+          channel: string | null
+          counterparty: string | null
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          is_flagged: boolean | null
+          status: string | null
+        }
+        Insert: {
+          amount: number
+          channel?: string | null
+          counterparty?: string | null
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          is_flagged?: boolean | null
+          status?: string | null
+        }
+        Update: {
+          amount?: number
+          channel?: string | null
+          counterparty?: string | null
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          is_flagged?: boolean | null
+          status?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -61,6 +242,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      alert_severity: "critical" | "high" | "medium" | "low"
+      case_status:
+        | "open"
+        | "investigating"
+        | "escalated"
+        | "resolved"
+        | "closed"
       user_role: "analyst" | "supervisor" | "admin"
     }
     CompositeTypes: {
@@ -189,6 +377,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      alert_severity: ["critical", "high", "medium", "low"],
+      case_status: ["open", "investigating", "escalated", "resolved", "closed"],
       user_role: ["analyst", "supervisor", "admin"],
     },
   },

@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import NetworkPage from "./pages/NetworkPage";
 import EntityPage from "./pages/EntityPage";
+import AlertsPage from "./pages/AlertsPage";
+import ReportsPage from "./pages/ReportsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +36,7 @@ const App = () => (
               path="/alerts"
               element={
                 <ProtectedRoute>
-                  <Index />
+                  <AlertsPage />
                 </ProtectedRoute>
               }
             />
@@ -58,7 +60,7 @@ const App = () => (
               path="/reports"
               element={
                 <ProtectedRoute>
-                  <Index />
+                  <ReportsPage />
                 </ProtectedRoute>
               }
             />
