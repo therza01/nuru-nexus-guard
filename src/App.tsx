@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import NetworkPage from "./pages/NetworkPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,7 +41,7 @@ const App = () => (
               path="/network"
               element={
                 <ProtectedRoute>
-                  <Index />
+                  <NetworkPage />
                 </ProtectedRoute>
               }
             />
