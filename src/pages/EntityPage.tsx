@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, Phone, Smartphone, Building2, CreditCard, Globe, LayoutGrid, Activity, TrendingUp, AlertTriangle } from "lucide-react";
+import { Search, Filter, Phone, Smartphone, Building2, CreditCard, Globe, LayoutGrid, Activity, TrendingUp, AlertTriangle, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,6 +11,8 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { EntityCard } from "@/components/entity/EntityCard";
 import { EntityProfile } from "@/components/entity/EntityProfile";
 import { TransactionHistory } from "@/components/entity/TransactionHistory";
+import { EntityTimeline } from "@/components/entity/EntityTimeline";
+import { RiskFlags } from "@/components/entity/RiskFlags";
 import { PulseIndicator } from "@/components/common/AnimatedCard";
 import { mockNetworkData, NetworkNode } from "@/data/networkData";
 import { useRealtimeTransactions } from "@/hooks/useRealtimeTransactions";
@@ -316,6 +318,24 @@ export default function EntityPage() {
                     transition={{ delay: 0.3 }}
                   >
                     <TransactionHistory entity={selectedEntity} />
+                  </motion.div>
+                </div>
+
+                {/* Risk Flags and Timeline */}
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35 }}
+                  >
+                    <RiskFlags entityId={selectedEntity.id} entityType={selectedEntity.type} />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <EntityTimeline entityId={selectedEntity.id} entityType={selectedEntity.type} />
                   </motion.div>
                 </div>
               </motion.div>
