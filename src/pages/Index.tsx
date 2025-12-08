@@ -1,15 +1,29 @@
+import { motion } from "framer-motion";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { RiskScoreCard } from "@/components/dashboard/RiskScoreCard";
 import { LiveAlerts } from "@/components/dashboard/LiveAlerts";
 import { TransactionChart } from "@/components/dashboard/TransactionChart";
-import { KenyaHeatmap } from "@/components/dashboard/KenyaHeatmap";
+import { KenyaLeafletHeatmap } from "@/components/maps/KenyaLeafletHeatmap";
 import { QuickStats } from "@/components/dashboard/QuickStats";
 import { AIAssistant } from "@/components/dashboard/AIAssistant";
+
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+};
 
 const Index = () => {
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <motion.div
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.3 }}
+        className="space-y-6"
+      >
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground mb-2">
@@ -36,7 +50,7 @@ const Index = () => {
             <TransactionChart />
           </div>
 
-          {/* Right Column - Alerts & Heatmap */}
+          {/* Right Column - Alerts */}
           <div className="space-y-6">
             <LiveAlerts />
           </div>
@@ -44,7 +58,7 @@ const Index = () => {
 
         {/* Bottom Row - Heatmap */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <KenyaHeatmap />
+          <KenyaLeafletHeatmap />
           <div className="glass-card p-6 rounded-2xl">
             <h3 className="font-display font-semibold text-lg text-foreground mb-4">
               Sector Risk Distribution
@@ -73,7 +87,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* AI Assistant */}
       <AIAssistant />
