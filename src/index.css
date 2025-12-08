@@ -172,3 +172,34 @@
     animation: float 3s ease-in-out infinite;
   }
 }
+
+/* Leaflet custom styling for Afrofuturistic theme */
+.leaflet-container {
+  background: hsl(228, 50%, 8%);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid hsl(228, 40%, 22%) !important;
+  background: hsl(228, 50%, 12%) !important;
+}
+
+.leaflet-control-zoom a {
+  background: hsl(228, 50%, 12%) !important;
+  color: hsl(270, 22%, 96%) !important;
+  border-color: hsl(228, 40%, 22%) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: hsl(228, 50%, 18%) !important;
+}
+
+.leaflet-control-attribution {
+  background: hsl(228, 50%, 8%, 0.8) !important;
+  color: hsl(228, 20%, 60%) !important;
+  font-size: 10px;
+}
+
+.leaflet-control-attribution a {
+  color: hsl(39, 61%, 56%) !important;
+}

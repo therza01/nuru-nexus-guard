@@ -8,6 +8,12 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
+const pageVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -122,7 +128,14 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-background pattern-afro flex">
+    <motion.div 
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="min-h-screen bg-background pattern-afro flex"
+    >
       {/* Left Panel - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <div className="absolute inset-0 gradient-indigo opacity-80" />
@@ -377,6 +390,6 @@ export default function Auth() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
